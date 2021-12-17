@@ -29566,34 +29566,50 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"../node_modules/react-dom/cjs/react-dom.development.js"}],"app.js":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"../node_modules/react-dom/cjs/react-dom.development.js"}],"pet.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// props = properties. props are what is passed down from one parent component to a child component
+var Pet = function Pet(props) {
+  return _react.default.createElement("div", {}, [_react.default.createElement("h2", {}, props.name), _react.default.createElement("h3", {}, props.animal), _react.default.createElement("h3", {}, props.breed)]);
+};
+
+var _default = Pet;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"app.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
 
 var _reactDom = _interopRequireDefault(require("react-dom"));
 
+var _pet = _interopRequireDefault(require("./pet"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // data flows downwards in React (one way data flow)
 // goes from parent to child. child has no way of messing with the parent component
-// props = properties. props are what is passed down from one parent component to a child component
-var Pet = function Pet(props) {
-  return _react.default.createElement("div", {}, [_react.default.createElement("h2", {}, props.name), _react.default.createElement("h3", {}, props.animal), _react.default.createElement("h3", {}, props.breed)]);
-}; // App is a function that returns the result of React.createElement
+// App is a function that returns the result of React.createElement
 // App is a React component -> kinda like a class of components and we can create instances of it
-
-
 var App = function App() {
-  return _react.default.createElement("div", {}, [_react.default.createElement("h1", {}, "Adopt Me!"), _react.default.createElement(Pet, {
+  return _react.default.createElement("div", {}, [_react.default.createElement("h1", {}, "Adopt Me!"), _react.default.createElement(_pet.default, {
     name: "Luna",
     animal: "Dog",
     breed: "Havanese"
-  }), _react.default.createElement(Pet, {
+  }), _react.default.createElement(_pet.default, {
     name: "Pepper",
     animal: "Bird",
     breed: "Cockatiel"
-  }), _react.default.createElement(Pet, {
+  }), _react.default.createElement(_pet.default, {
     name: "Sudo",
     animal: "Dog",
     breed: "Wheaten Terrier"
@@ -29601,7 +29617,7 @@ var App = function App() {
 };
 
 _reactDom.default.render(_react.default.createElement(App), document.getElementById("root")); // the createElement here is to create the instance of App
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./pet":"pet.js"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -29629,7 +29645,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50062" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50181" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
