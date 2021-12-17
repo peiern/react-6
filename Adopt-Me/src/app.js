@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom';
-import Pet from './pet';
+import Pet from './Pet';
 // data flows downwards in React (one way data flow)
 // goes from parent to child. child has no way of messing with the parent component
 
