@@ -29580,7 +29580,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 // props = properties. props are what is passed down from one parent component to a child component
 var Pet = function Pet(props) {
-  return _react.default.createElement("div", {}, [_react.default.createElement("h2", {}, props.name), _react.default.createElement("h3", {}, props.animal), _react.default.createElement("h3", {}, props.breed)]);
+  return (
+    /*#__PURE__*/
+    _react.default.createElement("div", {}, [
+    /*#__PURE__*/
+    _react.default.createElement("h2", {}, props.name),
+    /*#__PURE__*/
+    _react.default.createElement("h3", {}, props.animal),
+    /*#__PURE__*/
+    _react.default.createElement("h3", {}, props.breed)])
+  );
 };
 
 var _default = Pet;
@@ -29601,22 +29610,35 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // App is a function that returns the result of React.createElement
 // App is a React component -> kinda like a class of components and we can create instances of it
 var App = function App() {
-  return _react.default.createElement("div", {}, [_react.default.createElement("h1", {}, "Adopt Me!"), _react.default.createElement(_pet.default, {
-    name: "Luna",
-    animal: "Dog",
-    breed: "Havanese"
-  }), _react.default.createElement(_pet.default, {
-    name: "Pepper",
-    animal: "Bird",
-    breed: "Cockatiel"
-  }), _react.default.createElement(_pet.default, {
-    name: "Sudo",
-    animal: "Dog",
-    breed: "Wheaten Terrier"
-  })]);
+  return (
+    /*#__PURE__*/
+    _react.default.createElement("div", {}, [
+    /*#__PURE__*/
+    _react.default.createElement("h1", {}, "Adopt Me!"),
+    /*#__PURE__*/
+    _react.default.createElement(_pet.default, {
+      name: "Luna",
+      animal: "Dog",
+      breed: "Havanese"
+    }),
+    /*#__PURE__*/
+    _react.default.createElement(_pet.default, {
+      name: "Pepper",
+      animal: "Bird",
+      breed: "Cockatiel"
+    }),
+    /*#__PURE__*/
+    _react.default.createElement(_pet.default, {
+      name: "Sudo",
+      animal: "Dog",
+      breed: "Wheaten Terrier"
+    })])
+  );
 };
 
-_reactDom.default.render(_react.default.createElement(App), document.getElementById("root")); // the createElement here is to create the instance of App
+_reactDom.default.render(
+/*#__PURE__*/
+_react.default.createElement(App), document.getElementById("root")); // the createElement here is to create the instance of App
 },{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./pet":"pet.js"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -29645,7 +29667,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50181" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50292" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
