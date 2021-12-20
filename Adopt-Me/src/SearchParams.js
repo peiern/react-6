@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import useBreedList from './useBreedList';
 import Pet from './Pet';
 // useState is a hook that allows us to keep track of state as indicated by the state
 // hooks always begins with 'use'
@@ -10,7 +11,7 @@ const SearchParams = () => {
   const [animal, setAnimal] = useState("");
   const [breed, setBreed] = useState("");
   const [pets, setPets] = useState([]);
-  const breeds = [];
+  const [breedList] = useBreedList(animal);
 
   useEffect(() => {
     requestPets();
@@ -68,7 +69,7 @@ const SearchParams = () => {
 
           <option />
           {
-            breeds.map(breed => (
+            breedList.map(breed => (
               <option value={breed} key={breed}>
                 {breed}
               </option>
