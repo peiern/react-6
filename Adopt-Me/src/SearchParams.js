@@ -4,13 +4,16 @@ import { useState } from 'react';
 
 
 const SearchParams = () => {
-  const [location, setLocation] = useState("Seattle, WA");
+  const [location, setLocation] = useState("Seattle, WA"); // this is a hook that allows us to have the location and setLocation will track it over time
   return (
     <div className="search-params">
       <form>
         <label htmlFor="location">
           Location
-          <input id="location" value={location}
+          <input id="location"
+          onChange={(e) => setLocation(e.target.value)} // 1 line arrow function
+          // whenever user does something, it will give us back a function that gives us back an event
+          value={location}
           placeholder="Location" />
         </label>
         <button>Submit</button>
