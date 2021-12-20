@@ -30789,9 +30789,14 @@ var _jsxRuntime = require("react/jsx-runtime");
 
 // useState is a hook that allows us to keep track of state as indicated by the state
 // hooks always begins with 'use'
+const ANIMALS = ["bird", "cat", "dog", "rabbit", "reptile"];
+
 const SearchParams = () => {
   const [location, setLocation] = (0, _react.useState)("Seattle, WA"); // this is a hook that allows us to have the location and setLocation will track it over time
 
+  const [animal, setAnimal] = (0, _react.useState)("");
+  const [breed, setBreed] = (0, _react.useState)("");
+  const breeds = [];
   return (
     /*#__PURE__*/
     (0, _jsxRuntime.jsx)("div", {
@@ -30812,6 +30817,48 @@ const SearchParams = () => {
             ,
             value: location,
             placeholder: "Location"
+          })]
+        }),
+        /*#__PURE__*/
+        (0, _jsxRuntime.jsxs)("label", {
+          htmlFor: "animal",
+          children: ["Animal",
+          /*#__PURE__*/
+          (0, _jsxRuntime.jsxs)("select", {
+            id: "animal",
+            onChange: e => setAnimal(e.target.value) // with only onChange here, it gives an error to use onBlur instead as it worries onChange might not be enough to capture keyboard or screen reader users' response
+            ,
+            onBlur: e => setAnimal(e.target.value),
+            value: animal,
+            children: [
+            /*#__PURE__*/
+            (0, _jsxRuntime.jsx)("option", {}), ANIMALS.map(animal =>
+            /*#__PURE__*/
+            (0, _jsxRuntime.jsx)("option", {
+              value: animal,
+              children: animal
+            }, animal))]
+          })]
+        }),
+        /*#__PURE__*/
+        (0, _jsxRuntime.jsxs)("label", {
+          htmlFor: "breed",
+          children: ["Breed",
+          /*#__PURE__*/
+          (0, _jsxRuntime.jsxs)("select", {
+            id: "breed",
+            onChange: e => setBreed(e.target.value) // with only onChange here, it gives an error to use onBlur instead as it worries onChange might not be enough to capture keyboard or screen reader users' response
+            ,
+            onBlur: e => setBreed(e.target.value),
+            value: breed,
+            children: [
+            /*#__PURE__*/
+            (0, _jsxRuntime.jsx)("option", {}), breeds.map(breed =>
+            /*#__PURE__*/
+            (0, _jsxRuntime.jsx)("option", {
+              value: breed,
+              children: breed
+            }, breed))]
           })]
         }),
         /*#__PURE__*/
