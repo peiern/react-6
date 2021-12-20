@@ -30775,7 +30775,7 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-jsx-runtime.development.js');
 }
-},{"./cjs/react-jsx-runtime.development.js":"../node_modules/react/cjs/react-jsx-runtime.development.js"}],"Pet.js":[function(require,module,exports) {
+},{"./cjs/react-jsx-runtime.development.js":"../node_modules/react/cjs/react-jsx-runtime.development.js"}],"SearchParams.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -30783,53 +30783,62 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+var _react = require("react");
+
 var _jsxRuntime = require("react/jsx-runtime");
 
-// props = properties. props are what is passed down from one parent component to a child component
-// js way of writing
-// const Pet = (props) => {
-//   return React.createElement("div", {}, [
-//     React.createElement("h2", {}, props.name),
-//     React.createElement("h3", {}, props.animal),
-//     React.createElement("h3", {}, props.breed),
-//   ]);
-// };
-// jsx way of writing.
-// 👇 will generate the same result as the above code
-const Pet = props => {
+// useState is a hook that allows us to keep track of state as indicated by the state
+// hooks always begins with 'use'
+const SearchParams = () => {
+  const [location, setLocation] = (0, _react.useState)("Seattle, WA"); // this is a hook that allows us to have the location and setLocation will track it over time
+
   return (
     /*#__PURE__*/
-    (0, _jsxRuntime.jsxs)("div", {
-      children: [
+    (0, _jsxRuntime.jsx)("div", {
+      className: "search-params",
+      children:
       /*#__PURE__*/
-      (0, _jsxRuntime.jsx)("h2", {
-        children: props.name
-      }),
-      /*#__PURE__*/
-      (0, _jsxRuntime.jsx)("h3", {
-        children: props.animal
-      }),
-      /*#__PURE__*/
-      (0, _jsxRuntime.jsx)("h3", {
-        children: props.breed
-      })]
+      (0, _jsxRuntime.jsxs)("form", {
+        children: [
+        /*#__PURE__*/
+        (0, _jsxRuntime.jsxs)("label", {
+          htmlFor: "location",
+          children: ["Location",
+          /*#__PURE__*/
+          (0, _jsxRuntime.jsx)("input", {
+            id: "location",
+            onChange: e => setLocation(e.target.value) // 1 line arrow function
+            // whenever user does something, it will give us back a function that gives us back an event
+            ,
+            value: location,
+            placeholder: "Location"
+          })]
+        }),
+        /*#__PURE__*/
+        (0, _jsxRuntime.jsx)("button", {
+          children: "Submit"
+        })]
+      })
     })
   );
 };
 
-var _default = Pet;
+var _default = SearchParams; // the word class is a reserved word hence we use className
+// For is reserved for for loops in JS hence we use htmlFor
+
 exports.default = _default;
-},{"react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"app.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"app.js":[function(require,module,exports) {
 "use strict";
 
 var _reactDom = _interopRequireDefault(require("react-dom"));
 
-var _Pet = _interopRequireDefault(require("./Pet"));
+var _SearchParams = _interopRequireDefault(require("./SearchParams"));
 
 var _jsxRuntime = require("react/jsx-runtime");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// import Pet from './Pet';
 // data flows downwards in React (one way data flow)
 // goes from parent to child. child has no way of messing with the parent component
 // App is a function that returns the result of React.createElement
@@ -30864,23 +30873,7 @@ const App = () => {
         children: "Adopt Me!"
       }),
       /*#__PURE__*/
-      (0, _jsxRuntime.jsx)(_Pet.default, {
-        name: "Luna",
-        animal: "Dog",
-        breed: "Havanese"
-      }),
-      /*#__PURE__*/
-      (0, _jsxRuntime.jsx)(_Pet.default, {
-        name: "Pepper",
-        animal: "Bird",
-        breed: "Cockatiel"
-      }),
-      /*#__PURE__*/
-      (0, _jsxRuntime.jsx)(_Pet.default, {
-        name: "Sudo",
-        animal: "Dog",
-        breed: "Wheaten Terrier"
-      })]
+      (0, _jsxRuntime.jsx)(_SearchParams.default, {})]
     })
   );
 };
@@ -30888,7 +30881,7 @@ const App = () => {
 _reactDom.default.render(
 /*#__PURE__*/
 (0, _jsxRuntime.jsx)(App, {}), document.getElementById("root")); // the createElement here is to create the instance of App
-},{"react-dom":"../node_modules/react-dom/index.js","./Pet":"Pet.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react-dom":"../node_modules/react-dom/index.js","./SearchParams":"SearchParams.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -30916,7 +30909,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50614" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62984" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
