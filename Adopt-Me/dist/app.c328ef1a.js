@@ -30775,7 +30775,51 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-jsx-runtime.development.js');
 }
-},{"./cjs/react-jsx-runtime.development.js":"../node_modules/react/cjs/react-jsx-runtime.development.js"}],"SearchParams.js":[function(require,module,exports) {
+},{"./cjs/react-jsx-runtime.development.js":"../node_modules/react/cjs/react-jsx-runtime.development.js"}],"Pet.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _jsxRuntime = require("react/jsx-runtime");
+
+// props = properties. props are what is passed down from one parent component to a child component
+// js way of writing
+// const Pet = (props) => {
+//   return React.createElement("div", {}, [
+//     React.createElement("h2", {}, props.name),
+//     React.createElement("h3", {}, props.animal),
+//     React.createElement("h3", {}, props.breed),
+//   ]);
+// };
+// jsx way of writing.
+// 👇 will generate the same result as the above code
+const Pet = props => {
+  return (
+    /*#__PURE__*/
+    (0, _jsxRuntime.jsxs)("div", {
+      children: [
+      /*#__PURE__*/
+      (0, _jsxRuntime.jsx)("h2", {
+        children: props.name
+      }),
+      /*#__PURE__*/
+      (0, _jsxRuntime.jsx)("h3", {
+        children: props.animal
+      }),
+      /*#__PURE__*/
+      (0, _jsxRuntime.jsx)("h3", {
+        children: props.breed
+      })]
+    })
+  );
+};
+
+var _default = Pet;
+exports.default = _default;
+},{"react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"SearchParams.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -30785,23 +30829,42 @@ exports.default = void 0;
 
 var _react = require("react");
 
+var _Pet = _interopRequireDefault(require("./Pet"));
+
 var _jsxRuntime = require("react/jsx-runtime");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // useState is a hook that allows us to keep track of state as indicated by the state
 // hooks always begins with 'use'
 const ANIMALS = ["bird", "cat", "dog", "rabbit", "reptile"];
 
 const SearchParams = () => {
-  const [location, setLocation] = (0, _react.useState)("Seattle, WA"); // this is a hook that allows us to have the location and setLocation will track it over time
+  const [location, setLocation] = (0, _react.useState)(""); // this is a hook that allows us to have the location and setLocation will track it over time
 
   const [animal, setAnimal] = (0, _react.useState)("");
   const [breed, setBreed] = (0, _react.useState)("");
+  const [pets, setPets] = (0, _react.useState)([]);
   const breeds = [];
+  (0, _react.useEffect)(() => {
+    requestPets();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  // 👆 this comment tells eslint to ignore the rule for this particular line only
+  // this [] is telling the effect to always run once at the beginning and then when to rerun. Without it, it creates an infinite loop whenever we call setPets
+
+  async function requestPets() {
+    const res = await fetch(`http://pets-v2.dev-apis.com/pets?animal=${animal}&location=${location}&breed=${breed}` // this is the API
+    );
+    const json = await res.json(); // this json is whatever we get back from the API
+
+    setPets(json.pets); // so everytime we call requestPets(), it's gonna take all the data that I have, and also grab whatever we were searching for from the API
+  }
+
   return (
     /*#__PURE__*/
-    (0, _jsxRuntime.jsx)("div", {
+    (0, _jsxRuntime.jsxs)("div", {
       className: "search-params",
-      children:
+      children: [
       /*#__PURE__*/
       (0, _jsxRuntime.jsxs)("form", {
         children: [
@@ -30865,7 +30928,13 @@ const SearchParams = () => {
         (0, _jsxRuntime.jsx)("button", {
           children: "Submit"
         })]
-      })
+      }), pets.map(pet =>
+      /*#__PURE__*/
+      (0, _jsxRuntime.jsx)(_Pet.default, {
+        name: pet.name,
+        animal: pet.animal,
+        breed: pet.breed
+      }, pet.id))]
     })
   );
 };
@@ -30874,7 +30943,7 @@ var _default = SearchParams; // the word class is a reserved word hence we use c
 // For is reserved for for loops in JS hence we use htmlFor
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"app.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./Pet":"Pet.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"app.js":[function(require,module,exports) {
 "use strict";
 
 var _reactDom = _interopRequireDefault(require("react-dom"));

@@ -1,14 +1,32 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Pet from './Pet';
 // useState is a hook that allows us to keep track of state as indicated by the state
 // hooks always begins with 'use'
 
 const ANIMALS = ["bird", "cat", "dog", "rabbit", "reptile"];
 
 const SearchParams = () => {
-  const [location, setLocation] = useState("Seattle, WA"); // this is a hook that allows us to have the location and setLocation will track it over time
+  const [location, setLocation] = useState(""); // this is a hook that allows us to have the location and setLocation will track it over time
   const [animal, setAnimal] = useState("");
   const [breed, setBreed] = useState("");
+  const [pets, setPets] = useState([]);
   const breeds = [];
+
+  useEffect(() => {
+    requestPets();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  // 👆 this comment tells eslint to ignore the rule for this particular line only
+  // this [] is telling the effect to always run once at the beginning and then when to rerun. Without it, it creates an infinite loop whenever we call setPets
+
+
+  async function requestPets() {
+    const res = await fetch(
+      `http://pets-v2.dev-apis.com/pets?animal=${animal}&location=${location}&breed=${breed}` // this is the API
+      );
+      const json = await res.json(); // this json is whatever we get back from the API
+      setPets(json.pets);
+  // so everytime we call requestPets(), it's gonna take all the data that I have, and also grab whatever we were searching for from the API
+  }
 
   return (
     <div className="search-params">
@@ -61,6 +79,12 @@ const SearchParams = () => {
 
         <button>Submit</button>
       </form>
+
+      {
+        pets.map(pet => (
+          <Pet name={pet.name} animal={pet.animal} breed={pet.breed} key={pet.id} />
+        ))
+      }
     </div>
   )
 }
