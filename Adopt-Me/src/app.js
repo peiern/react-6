@@ -37,4 +37,4 @@ const App = () => {
   );
 };
 
-ReactDOM.render(React.createElement(App), document.getElementById("root")); // the createElement here is to create the instance of App
+ReactDOM.render(<App />, document.getElementById("root")); // the createElement here is to create the instance of App
