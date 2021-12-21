@@ -30837,22 +30837,49 @@ var _jsxRuntime = require("react/jsx-runtime");
 // };
 // jsx way of writing.
 // 👇 will generate the same result as the above code
-const Pet = props => {
+const Pet = ({
+  name,
+  animal,
+  breed,
+  images,
+  location,
+  id
+}) => {
+  let hero = "http://pets-images.dev-apis.com/pets/none.jpg"; // this is the image that gets display if nothing comes back from the API
+
+  if (images.length) {
+    hero = images[0];
+  } // if we get any images back, we want to make that the image
+
+
   return (
     /*#__PURE__*/
-    (0, _jsxRuntime.jsxs)("div", {
+    (0, _jsxRuntime.jsxs)("a", {
+      href: `/details/${id}`,
+      className: "pet",
       children: [
       /*#__PURE__*/
-      (0, _jsxRuntime.jsx)("h2", {
-        children: props.name
+      (0, _jsxRuntime.jsx)("div", {
+        className: "image-container",
+        children:
+        /*#__PURE__*/
+        (0, _jsxRuntime.jsx)("img", {
+          src: hero,
+          alt: name
+        })
       }),
       /*#__PURE__*/
-      (0, _jsxRuntime.jsx)("h3", {
-        children: props.animal
-      }),
-      /*#__PURE__*/
-      (0, _jsxRuntime.jsx)("h3", {
-        children: props.breed
+      (0, _jsxRuntime.jsxs)("div", {
+        className: "info",
+        children: [
+        /*#__PURE__*/
+        (0, _jsxRuntime.jsx)("h1", {
+          children: name
+        }),
+        /*#__PURE__*/
+        (0, _jsxRuntime.jsx)("h2", {
+          children: `${animal} - ${breed} - ${location}`
+        })]
       })]
     })
   );

@@ -10,13 +10,29 @@
 
 // jsx way of writing.
 // 👇 will generate the same result as the above code
-const Pet = (props) => {
+const Pet = ({
+  name,
+  animal,
+  breed,
+  images,
+  location,
+  id
+}) => {
+  let hero = "http://pets-images.dev-apis.com/pets/none.jpg" // this is the image that gets display if nothing comes back from the API
+  if (images.length) {
+    hero = images[0];
+  } // if we get any images back, we want to make that the image
+
   return(
-    <div>
-      <h2>{props.name}</h2>
-      <h3>{props.animal}</h3>
-      <h3>{props.breed}</h3>
-    </div>
+    <a href={`/details/${id}`} className="pet">
+      <div className="image-container">
+        <img src={hero} alt={name} />
+      </div>
+      <div className="info">
+        <h1>{name}</h1>
+        <h2>{`${animal} - ${breed} - ${location}`}</h2>
+      </div>
+    </a>
   )
 }
 
