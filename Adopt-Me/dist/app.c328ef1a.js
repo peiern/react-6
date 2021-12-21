@@ -35236,6 +35236,15 @@ class Details extends _react.Component {
   }
 
   render() {
+    if (this.state.loading) {
+      return (
+        /*#__PURE__*/
+        (0, _jsxRuntime.jsx)("h2", {
+          children: "loading..."
+        })
+      );
+    }
+
     const {
       animal,
       breed,
