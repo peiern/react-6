@@ -29566,7 +29566,48 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"../node_modules/react-dom/cjs/react-dom.development.js"}],"../node_modules/react/cjs/react-jsx-runtime.development.js":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"../node_modules/react-dom/cjs/react-dom.development.js"}],"useBreedList.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = useBreedList;
+
+var _react = require("react");
+
+const localCache = {};
+
+function useBreedList(animal) {
+  const [breedList, setBreedList] = (0, _react.useState)([]);
+  const [status, setStatus] = (0, _react.useState)('unloaded'); // a string representing the state of the hook. if no one has called it before, it will be in the 'unloaded' state
+
+  (0, _react.useEffect)(() => {
+    if (!animal) {
+      setBreedList([]);
+    } else if (localCache[animal]) {
+      setBreedList(localCache[animal]);
+    } else {
+      requestBreedList();
+    } // 👆 no animal return empty list,
+    // if i have something locally, i've already requested this previously then display that list
+    // otherwise go out to the API and get it
+
+
+    async function requestBreedList() {
+      setBreedList([]);
+      setStatus('loading');
+      const res = await fetch(`http://pets-v2.dev-apis.com/breeds?animal=${animal}`);
+      const json = await res.json();
+      localCache[animal] = json.breeds || []; // || [] here is in case the API is not working
+
+      setBreedList(localCache[animal]);
+      setStatus('loaded');
+    }
+  }, [animal]);
+  return [breedList, status];
+}
+},{"react":"../node_modules/react/index.js"}],"../node_modules/react/cjs/react-jsx-runtime.development.js":[function(require,module,exports) {
 /** @license React v17.0.1
  * react-jsx-runtime.development.js
  *
@@ -30829,6 +30870,8 @@ exports.default = void 0;
 
 var _react = require("react");
 
+var _useBreedList = _interopRequireDefault(require("./useBreedList"));
+
 var _Pet = _interopRequireDefault(require("./Pet"));
 
 var _jsxRuntime = require("react/jsx-runtime");
@@ -30845,7 +30888,7 @@ const SearchParams = () => {
   const [animal, setAnimal] = (0, _react.useState)("");
   const [breed, setBreed] = (0, _react.useState)("");
   const [pets, setPets] = (0, _react.useState)([]);
-  const breeds = [];
+  const [breedList] = (0, _useBreedList.default)(animal);
   (0, _react.useEffect)(() => {
     requestPets();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -30916,7 +30959,7 @@ const SearchParams = () => {
             value: breed,
             children: [
             /*#__PURE__*/
-            (0, _jsxRuntime.jsx)("option", {}), breeds.map(breed =>
+            (0, _jsxRuntime.jsx)("option", {}), breedList.map(breed =>
             /*#__PURE__*/
             (0, _jsxRuntime.jsx)("option", {
               value: breed,
@@ -30943,7 +30986,7 @@ var _default = SearchParams; // the word class is a reserved word hence we use c
 // For is reserved for for loops in JS hence we use htmlFor
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","./Pet":"Pet.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"app.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./useBreedList":"useBreedList.js","./Pet":"Pet.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"app.js":[function(require,module,exports) {
 "use strict";
 
 var _reactDom = _interopRequireDefault(require("react-dom"));
