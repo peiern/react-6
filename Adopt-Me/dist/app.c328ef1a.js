@@ -35201,7 +35201,75 @@ var _default = SearchParams; // the word class is a reserved word hence we use c
 // For is reserved for for loops in JS hence we use htmlFor
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","./useBreedList":"useBreedList.js","./Results":"Results.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"Details.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./useBreedList":"useBreedList.js","./Results":"Results.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"Carousel.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = require("react");
+
+var _jsxRuntime = require("react/jsx-runtime");
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+class Carousel extends _react.Component {
+  constructor(...args) {
+    super(...args);
+
+    _defineProperty(this, "state", {
+      active: 0
+    });
+  }
+
+  render() {
+    const {
+      active
+    } = this.state;
+    const {
+      images
+    } = this.props; // the difference between state and props:
+    // state is mutable
+    // props is coming from the parent and its read-only
+
+    return (
+      /*#__PURE__*/
+      (0, _jsxRuntime.jsxs)("div", {
+        className: "carousel",
+        children: [
+        /*#__PURE__*/
+        (0, _jsxRuntime.jsx)("img", {
+          src: images[active],
+          alt: "animal"
+        }),
+        /*#__PURE__*/
+        (0, _jsxRuntime.jsx)("div", {
+          className: "carousel-smaller",
+          children: images.map((photo, index) =>
+          /*#__PURE__*/
+          (0, _jsxRuntime.jsx)("img", {
+            src: photo,
+            className: index === active ? "active" : "",
+            alt: "animal thumbnail"
+          }, photo))
+        })]
+      })
+    );
+  }
+
+}
+
+_defineProperty(Carousel, "defaultProps", {
+  images: ["http://pets-images.dev-apis.com/pets/none.jpg"] // defaultProps = basically saying if there is no props for images, we're gonna fall back on the default image
+  // static means its callable on the abstract class
+
+});
+
+var _default = Carousel;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"Details.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -35213,17 +35281,25 @@ var _react = require("react");
 
 var _reactRouterDom = require("react-router-dom");
 
+var _Carousel = _interopRequireDefault(require("./Carousel"));
+
 var _jsxRuntime = require("react/jsx-runtime");
 
-class Details extends _react.Component {
-  constructor() {
-    super(); // this is to call the Component constructor
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-    this.state = {
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+class Details extends _react.Component {
+  constructor(...args) {
+    super(...args);
+
+    _defineProperty(this, "state", {
       loading: true
-    }; // default state. Whenever we create one of this, its gonna be loading
+    });
   }
 
+  // 👆 this is the same as line 5 - 9
+  // we can write it like this because of the babel eslint parser
   async componentDidMount() {
     const res = await fetch(`http://pets-v2.dev-apis.com/pets?id=${this.props.match.params.id}` // this -> refers to the Details component // props -> what is passed down from the parent
     // match and params -> from the react router. match -> match path. params -> parameters that I'm getting from the user
@@ -35251,13 +35327,18 @@ class Details extends _react.Component {
       city,
       state,
       description,
-      name
+      name,
+      images
     } = this.state;
     return (
       /*#__PURE__*/
-      (0, _jsxRuntime.jsx)("div", {
+      (0, _jsxRuntime.jsxs)("div", {
         className: "details",
-        children:
+        children: [
+        /*#__PURE__*/
+        (0, _jsxRuntime.jsx)(_Carousel.default, {
+          images: images
+        }),
         /*#__PURE__*/
         (0, _jsxRuntime.jsxs)("div", {
           children: [
@@ -35277,7 +35358,7 @@ class Details extends _react.Component {
           (0, _jsxRuntime.jsx)("p", {
             children: description
           })]
-        })
+        })]
       })
     );
   }
@@ -35290,7 +35371,7 @@ var _default = (0, _reactRouterDom.withRouter)(Details); // by default React Rou
 
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"app.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./Carousel":"Carousel.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"app.js":[function(require,module,exports) {
 "use strict";
 
 var _react = require("react");
@@ -35334,15 +35415,24 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 const App = () => {
   return (
     /*#__PURE__*/
-    (0, _jsxRuntime.jsxs)("div", {
-      children: [
+    (0, _jsxRuntime.jsx)("div", {
+      children:
       /*#__PURE__*/
-      (0, _jsxRuntime.jsx)("h1", {
-        children: "Adopt Me!"
-      }),
-      /*#__PURE__*/
-      (0, _jsxRuntime.jsx)(_reactRouterDom.BrowserRouter, {
-        children:
+      (0, _jsxRuntime.jsxs)(_reactRouterDom.BrowserRouter, {
+        children: [
+        /*#__PURE__*/
+        (0, _jsxRuntime.jsx)("header", {
+          children:
+          /*#__PURE__*/
+          (0, _jsxRuntime.jsx)(_reactRouterDom.Link, {
+            to: "/",
+            children:
+            /*#__PURE__*/
+            (0, _jsxRuntime.jsx)("h1", {
+              children: "Adopt Me!"
+            })
+          })
+        }),
         /*#__PURE__*/
         (0, _jsxRuntime.jsxs)(_reactRouterDom.Switch, {
           children: [
@@ -35360,8 +35450,8 @@ const App = () => {
             /*#__PURE__*/
             (0, _jsxRuntime.jsx)(_SearchParams.default, {})
           })]
-        })
-      })]
+        })]
+      })
     })
   );
 };
@@ -35401,7 +35491,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54652" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56545" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
