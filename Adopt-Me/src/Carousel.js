@@ -11,6 +11,13 @@ class Carousel extends Component {
     // static means its callable on the abstract class
   }
 
+  handleIndexClick = (e) => {
+    this.setState({
+      active: +e.target.dataset.index
+      // the + sign changes string to a number
+    });
+  }
+
   render () {
     const { active } = this.state;
     const { images } = this.props;
@@ -23,9 +30,15 @@ class Carousel extends Component {
         <img src={images[active]} alt="animal" />
         <div className="carousel-smaller">
           {images.map((photo, index) => (
+            // eslint-disable-next-line
             <img
               key={photo}
               src={photo}
+              data-index={index}
+              onClick={this.handleIndexClick}
+              // onClick={this.handleIndexClick.bind(this)}
+              // this is the same converting handleIndexClick to an arrow function
+              // it will bind it to the this, which was initially undefined
               className={index === active ? "active": ""}
               alt="animal thumbnail"/>
           ))}

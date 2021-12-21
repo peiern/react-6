@@ -35222,6 +35222,13 @@ class Carousel extends _react.Component {
     _defineProperty(this, "state", {
       active: 0
     });
+
+    _defineProperty(this, "handleIndexClick", e => {
+      this.setState({
+        active: +e.target.dataset.index // the + sign changes string to a number
+
+      });
+    });
   }
 
   render() {
@@ -35249,8 +35256,14 @@ class Carousel extends _react.Component {
           className: "carousel-smaller",
           children: images.map((photo, index) =>
           /*#__PURE__*/
+          // eslint-disable-next-line
           (0, _jsxRuntime.jsx)("img", {
             src: photo,
+            "data-index": index,
+            onClick: this.handleIndexClick // onClick={this.handleIndexClick.bind(this)}
+            // this is the same converting handleIndexClick to an arrow function
+            // it will bind it to the this, which was initially undefined
+            ,
             className: index === active ? "active" : "",
             alt: "animal thumbnail"
           }, photo))
