@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 // props = properties. props are what is passed down from one parent component to a child component
 // js way of writing
 // const Pet = (props) => {
@@ -24,7 +26,7 @@ const Pet = ({
   } // if we get any images back, we want to make that the image
 
   return(
-    <a href={`/details/${id}`} className="pet">
+    <Link to={`/details/${id}`} className="pet">
       <div className="image-container">
         <img src={hero} alt={name} />
       </div>
@@ -32,8 +34,11 @@ const Pet = ({
         <h1>{name}</h1>
         <h2>{`${animal} - ${breed} - ${location}`}</h2>
       </div>
-    </a>
+    </Link>
   )
 }
+// Once we're using React Router we want to switch a tags to Link tags
+// Link tags doesn't reload the entire page, React Router captures the navigation event and its doing the navigation without reloading the application
+// it becomes a single page application
 
 export default Pet;
