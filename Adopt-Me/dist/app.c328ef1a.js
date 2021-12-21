@@ -31060,6 +31060,8 @@ exports.default = _default;
 },{"react":"../node_modules/react/index.js","./useBreedList":"useBreedList.js","./Results":"Results.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"app.js":[function(require,module,exports) {
 "use strict";
 
+var _react = require("react");
+
 var _reactDom = _interopRequireDefault(require("react-dom"));
 
 var _SearchParams = _interopRequireDefault(require("./SearchParams"));
@@ -31110,8 +31112,12 @@ const App = () => {
 
 _reactDom.default.render(
 /*#__PURE__*/
-(0, _jsxRuntime.jsx)(App, {}), document.getElementById("root")); // the createElement here is to create the instance of App
-},{"react-dom":"../node_modules/react-dom/index.js","./SearchParams":"SearchParams.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+(0, _jsxRuntime.jsx)(_react.StrictMode, {
+  children:
+  /*#__PURE__*/
+  (0, _jsxRuntime.jsx)(App, {})
+}), document.getElementById("root")); // the createElement here is to create the instance of App
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./SearchParams":"SearchParams.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
