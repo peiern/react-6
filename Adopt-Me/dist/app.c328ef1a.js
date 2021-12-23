@@ -35418,7 +35418,54 @@ class ErrorBoundary extends _react.Component {
 
 var _default = ErrorBoundary;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"Details.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"Modal.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = require("react");
+
+var _reactDom = require("react-dom");
+
+var _jsxRuntime = require("react/jsx-runtime");
+
+const modalRoot = document.getElementById('modal');
+
+const Modal = ({
+  children
+}) => {
+  const elRef = (0, _react.useRef)(null);
+
+  if (!elRef.current) {
+    elRef.current = document.createElement('div'); // this is saying if elRef hasn't been initialized, we want it to be initialized with this div
+    // and we want it to survive past renders, until we dispose the modal
+    // but until then, I only want 1 div
+  }
+
+  (0, _react.useEffect)(() => {
+    modalRoot.appendChild(elRef.current);
+    return () => modalRoot.removeChild(elRef.current);
+  }, []); // this is saying, whenever it gets created, insert it into the DOM
+  // and whenever you're done, remove it from the DOM
+  // this prevents memory leaks
+
+  return (
+    /*#__PURE__*/
+    (0, _reactDom.createPortal)(
+    /*#__PURE__*/
+    (0, _jsxRuntime.jsx)("div", {
+      children: children
+    }), elRef.current)
+  );
+}; // Ref is a container for state that you want to survive past render cycles
+
+
+var _default = Modal;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"Details.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -35436,6 +35483,8 @@ var _ErrorBoundary = _interopRequireDefault(require("./ErrorBoundary"));
 
 var _ThemeContext = _interopRequireDefault(require("./ThemeContext"));
 
+var _Modal = _interopRequireDefault(require("./Modal"));
+
 var _jsxRuntime = require("react/jsx-runtime");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -35447,8 +35496,15 @@ class Details extends _react.Component {
     super(...args);
 
     _defineProperty(this, "state", {
-      loading: true
+      loading: true,
+      showModal: false
     });
+
+    _defineProperty(this, "toggleModal", () => this.setState({
+      showModal: !this.state.showModal
+    }));
+
+    _defineProperty(this, "adopt", () => window.location = "http://bit.ly/pet-adopt");
   }
 
   // 👆 this is the same as line 5 - 9
@@ -35481,7 +35537,8 @@ class Details extends _react.Component {
       state,
       description,
       name,
-      images
+      images,
+      showModal
     } = this.state;
     return (
       /*#__PURE__*/
@@ -35508,6 +35565,7 @@ class Details extends _react.Component {
             children: ([theme]) =>
             /*#__PURE__*/
             (0, _jsxRuntime.jsxs)("button", {
+              onClick: this.toggleModal,
               style: {
                 backgroundColor: theme
               },
@@ -35517,7 +35575,34 @@ class Details extends _react.Component {
           /*#__PURE__*/
           (0, _jsxRuntime.jsx)("p", {
             children: description
-          })]
+          }), showModal ?
+          /*#__PURE__*/
+          (0, _jsxRuntime.jsx)(_Modal.default, {
+            children:
+            /*#__PURE__*/
+            (0, _jsxRuntime.jsxs)("div", {
+              children: [
+              /*#__PURE__*/
+              (0, _jsxRuntime.jsxs)("h1", {
+                children: ["Would you like to adopt ", name, "?"]
+              }),
+              /*#__PURE__*/
+              (0, _jsxRuntime.jsxs)("div", {
+                className: "buttons",
+                children: [
+                /*#__PURE__*/
+                (0, _jsxRuntime.jsx)("button", {
+                  onClick: this.adopt,
+                  children: "Yes"
+                }),
+                /*#__PURE__*/
+                (0, _jsxRuntime.jsx)("button", {
+                  onClick: this.toggleModal,
+                  children: "No"
+                })]
+              })]
+            })
+          }) : null]
         })]
       })
     );
@@ -35530,17 +35615,18 @@ const DetailsWithRouter = (0, _reactRouterDom.withRouter)(Details); // export de
 // something called higher order component. it passes all the information into the component
 // injects all the router information into the route
 
-function DetailsErrorBoundary() {
+function DetailsErrorBoundary(props) {
   return (
     /*#__PURE__*/
     (0, _jsxRuntime.jsx)(_ErrorBoundary.default, {
       children:
       /*#__PURE__*/
-      (0, _jsxRuntime.jsx)(DetailsWithRouter, {})
+      (0, _jsxRuntime.jsx)(DetailsWithRouter, { ...props
+      })
     })
   );
 }
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./Carousel":"Carousel.js","./ErrorBoundary":"ErrorBoundary.js","./ThemeContext":"ThemeContext.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"app.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./Carousel":"Carousel.js","./ErrorBoundary":"ErrorBoundary.js","./ThemeContext":"ThemeContext.js","./Modal":"Modal.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"app.js":[function(require,module,exports) {
 "use strict";
 
 var _react = require("react");

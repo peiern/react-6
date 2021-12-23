@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import Carousel from './Carousel';
 import ErrorBoundary from './ErrorBoundary';
 import ThemeContext from './ThemeContext';
+import Modal from './Modal';
 
 class Details extends Component {
   // constructor () {
@@ -11,7 +12,7 @@ class Details extends Component {
   //   this.state = { loading: true }; // default state. Whenever we create one of this, its gonna be loading
   // }
 
-  state = { loading: true };
+  state = { loading: true, showModal: false };
   // 👆 this is the same as line 5 - 9
   // we can write it like this because of the babel eslint parser
 
@@ -32,12 +33,17 @@ class Details extends Component {
       )
     );
   }
+
+  toggleModal = () => this.setState({ showModal: !this.state.showModal })
+  adopt = () => (window.location = "http://bit.ly/pet-adopt");
+
   render () {
     if (this.state.loading){
       return <h2>loading...</h2>
     }
 
-    const { animal, breed, city, state, description, name, images } = this.state;
+    const { animal, breed, city, state, description, name, images, showModal } = this.state;
+
     return (
       <div className="details">
         <Carousel images={images}/>
@@ -48,10 +54,24 @@ class Details extends Component {
           // line 33 and 34 are the same, just different way of writing it */}
           <ThemeContext.Consumer>
             {([theme]) => (
-              <button style={{backgroundColor: theme}}>Adopt {name}</button>
+              <button
+              onClick={this.toggleModal}
+              style={{backgroundColor: theme}}>
+                Adopt {name}</button>
             )}
           </ThemeContext.Consumer>
           <p>{description}</p>
+          {showModal ? (
+            <Modal>
+              <div>
+                <h1>Would you like to adopt {name}?</h1>
+                <div className="buttons">
+                  <button onClick={this.adopt}>Yes</button>
+                  <button onClick={this.toggleModal}>No</button>
+                </div>
+              </div>
+            </Modal>
+            ) : null}
         </div>
       </div>
     )
@@ -65,10 +85,10 @@ const DetailsWithRouter = withRouter(Details)
 // something called higher order component. it passes all the information into the component
 // injects all the router information into the route
 
-export default function DetailsErrorBoundary() {
+export default function DetailsErrorBoundary(props) {
   return (
     <ErrorBoundary>
-      <DetailsWithRouter />
+      <DetailsWithRouter {...props} />
     </ErrorBoundary>
   )
 }
