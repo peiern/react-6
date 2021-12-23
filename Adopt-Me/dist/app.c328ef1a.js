@@ -33705,7 +33705,22 @@ if ("development" !== "production") {
     style: _propTypes.default.object
   });
 }
-},{"react-router":"../node_modules/react-router/esm/react-router.js","@babel/runtime/helpers/esm/inheritsLoose":"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react":"../node_modules/react/index.js","history":"../node_modules/history/esm/history.js","prop-types":"../node_modules/prop-types/index.js","tiny-warning":"../node_modules/tiny-warning/dist/tiny-warning.esm.js","@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","tiny-invariant":"../node_modules/tiny-invariant/dist/tiny-invariant.esm.js"}],"useBreedList.js":[function(require,module,exports) {
+},{"react-router":"../node_modules/react-router/esm/react-router.js","@babel/runtime/helpers/esm/inheritsLoose":"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react":"../node_modules/react/index.js","history":"../node_modules/history/esm/history.js","prop-types":"../node_modules/prop-types/index.js","tiny-warning":"../node_modules/tiny-warning/dist/tiny-warning.esm.js","@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","tiny-invariant":"../node_modules/tiny-invariant/dist/tiny-invariant.esm.js"}],"ThemeContext.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = require("react");
+
+const ThemeContext =
+/*#__PURE__*/
+(0, _react.createContext)(["green", () => {}]);
+var _default = ThemeContext;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"useBreedList.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -35083,6 +35098,8 @@ exports.default = void 0;
 
 var _react = require("react");
 
+var _ThemeContext = _interopRequireDefault(require("./ThemeContext"));
+
 var _useBreedList = _interopRequireDefault(require("./useBreedList"));
 
 var _Results = _interopRequireDefault(require("./Results"));
@@ -35102,6 +35119,7 @@ const SearchParams = () => {
   const [breed, setBreed] = (0, _react.useState)("");
   const [pets, setPets] = (0, _react.useState)([]);
   const [breedList] = (0, _useBreedList.default)(animal);
+  const [theme, setTheme] = (0, _react.useContext)(_ThemeContext.default);
   (0, _react.useEffect)(() => {
     requestPets();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -35185,7 +35203,44 @@ const SearchParams = () => {
           })]
         }),
         /*#__PURE__*/
+        (0, _jsxRuntime.jsxs)("label", {
+          htmlFor: "theme",
+          children: ["Theme",
+          /*#__PURE__*/
+          (0, _jsxRuntime.jsxs)("select", {
+            onChange: e => setTheme(e.target.value),
+            onBlur: e => setTheme(e.target.value),
+            value: theme,
+            children: [
+            /*#__PURE__*/
+            (0, _jsxRuntime.jsx)("option", {}),
+            /*#__PURE__*/
+            (0, _jsxRuntime.jsx)("option", {
+              value: "darkblue",
+              children: "Dark Blue"
+            }),
+            /*#__PURE__*/
+            (0, _jsxRuntime.jsx)("option", {
+              value: "peru",
+              children: "Peru"
+            }),
+            /*#__PURE__*/
+            (0, _jsxRuntime.jsx)("option", {
+              value: "chartreuse",
+              children: "Chartreuse"
+            }),
+            /*#__PURE__*/
+            (0, _jsxRuntime.jsx)("option", {
+              value: "mediumorchid",
+              children: "Medium Orchid"
+            })]
+          })]
+        }),
+        /*#__PURE__*/
         (0, _jsxRuntime.jsx)("button", {
+          style: {
+            backgroundColor: theme
+          },
           children: "Submit"
         })]
       }),
@@ -35201,7 +35256,7 @@ var _default = SearchParams; // the word class is a reserved word hence we use c
 // For is reserved for for loops in JS hence we use htmlFor
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","./useBreedList":"useBreedList.js","./Results":"Results.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"Carousel.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./ThemeContext":"ThemeContext.js","./useBreedList":"useBreedList.js","./Results":"Results.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"Carousel.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -35379,6 +35434,8 @@ var _Carousel = _interopRequireDefault(require("./Carousel"));
 
 var _ErrorBoundary = _interopRequireDefault(require("./ErrorBoundary"));
 
+var _ThemeContext = _interopRequireDefault(require("./ThemeContext"));
+
 var _jsxRuntime = require("react/jsx-runtime");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -35447,8 +35504,15 @@ class Details extends _react.Component {
             children: `${animal} - ${breed} - ${city}, ${state}`
           }),
           /*#__PURE__*/
-          (0, _jsxRuntime.jsxs)("button", {
-            children: ["Adopt ", name]
+          (0, _jsxRuntime.jsx)(_ThemeContext.default.Consumer, {
+            children: ([theme]) =>
+            /*#__PURE__*/
+            (0, _jsxRuntime.jsxs)("button", {
+              style: {
+                backgroundColor: theme
+              },
+              children: ["Adopt ", name]
+            })
           }),
           /*#__PURE__*/
           (0, _jsxRuntime.jsx)("p", {
@@ -35476,7 +35540,7 @@ function DetailsErrorBoundary() {
     })
   );
 }
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./Carousel":"Carousel.js","./ErrorBoundary":"ErrorBoundary.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"app.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./Carousel":"Carousel.js","./ErrorBoundary":"ErrorBoundary.js","./ThemeContext":"ThemeContext.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"app.js":[function(require,module,exports) {
 "use strict";
 
 var _react = require("react");
