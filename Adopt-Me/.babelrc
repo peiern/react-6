@@ -7,9 +7,9 @@
     ],
     "@babel/preset-env"
   ],
-  "plugins":[
-    "@babel/plugin-proposal-class-properties"
-  ]
+    "plugins":[
+      "@babel/plugin-proposal-class-properties"
+    ]
 }
 
 // "presets" is a group of plugins

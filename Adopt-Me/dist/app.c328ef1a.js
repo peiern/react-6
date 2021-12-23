@@ -35303,14 +35303,14 @@ class ErrorBoundary extends _react.Component {
     super(...args);
 
     _defineProperty(this, "state", {
-      hasError: false,
-      redirect: false
+      hasError: false
     });
   }
 
   static getDerivedStateFromError() {
     return {
-      hasError: true
+      hasError: true,
+      redirect: false
     }; // getDerivedStateFromError() will render a fallback UI after an error has been thrown
   }
 
@@ -35322,6 +35322,13 @@ class ErrorBoundary extends _react.Component {
       });
     }, 5000);
   } // componentDidCatch() will log the error info
+  //  componentDidUpdate() {
+  //   if (this.state.hasError) {
+  //     setTimeout(() => this.setState({ redirect: true }), 5000);
+  //   }
+  // }
+  // componentDidUpdate() cannot be called on the very first time that it renders
+  // as we will assume that we wouldn't hit an error on the first time
 
 
   render() {
@@ -35346,7 +35353,7 @@ class ErrorBoundary extends _react.Component {
       );
     }
 
-    return this.props.childern; // what that is passed between <ErrorBoundary> is the children
+    return this.props.children; // what that is passed between <ErrorBoundary> is the children
   }
 
 } // <ErrorBoundary>
@@ -35362,7 +35369,7 @@ exports.default = _default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = DetailsWithErrorBoundary;
+exports.default = DetailsErrorBoundary;
 
 var _react = require("react");
 
@@ -35459,7 +35466,7 @@ const DetailsWithRouter = (0, _reactRouterDom.withRouter)(Details); // export de
 // something called higher order component. it passes all the information into the component
 // injects all the router information into the route
 
-function DetailsWithErrorBoundary() {
+function DetailsErrorBoundary() {
   return (
     /*#__PURE__*/
     (0, _jsxRuntime.jsx)(_ErrorBoundary.default, {

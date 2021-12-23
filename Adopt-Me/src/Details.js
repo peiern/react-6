@@ -60,7 +60,7 @@ const DetailsWithRouter = withRouter(Details)
 // something called higher order component. it passes all the information into the component
 // injects all the router information into the route
 
-export default function DetailsWithErrorBoundary() {
+export default function DetailsErrorBoundary() {
   return (
     <ErrorBoundary>
       <DetailsWithRouter />
