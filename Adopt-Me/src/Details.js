@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import Carousel from './Carousel';
+import ErrorBoundary from './ErrorBoundary';
 
 class Details extends Component {
   // constructor () {
@@ -52,7 +53,17 @@ class Details extends Component {
   }
 }
 
-export default withRouter(Details);
+const DetailsWithRouter = withRouter(Details)
+
+// export default withRouter(Details);
 // by default React Router doesn't pass in all its information to the component so we have to use
 // something called higher order component. it passes all the information into the component
 // injects all the router information into the route
+
+export default function DetailsWithErrorBoundary() {
+  return (
+    <ErrorBoundary>
+      <DetailsWithRouter />
+    </ErrorBoundary>
+  )
+}

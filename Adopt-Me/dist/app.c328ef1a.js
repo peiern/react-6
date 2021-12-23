@@ -35282,7 +35282,7 @@ _defineProperty(Carousel, "defaultProps", {
 
 var _default = Carousel;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"Details.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"ErrorBoundary.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -35294,7 +35294,83 @@ var _react = require("react");
 
 var _reactRouterDom = require("react-router-dom");
 
+var _jsxRuntime = require("react/jsx-runtime");
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+class ErrorBoundary extends _react.Component {
+  constructor(...args) {
+    super(...args);
+
+    _defineProperty(this, "state", {
+      hasError: false,
+      redirect: false
+    });
+  }
+
+  static getDerivedStateFromError() {
+    return {
+      hasError: true
+    }; // getDerivedStateFromError() will render a fallback UI after an error has been thrown
+  }
+
+  componentDidCatch(error, info) {
+    console.error("ErrorBoundary caught an error", error, info);
+    setTimeout(() => {
+      this.setState({
+        redirect: true
+      });
+    }, 5000);
+  } // componentDidCatch() will log the error info
+
+
+  render() {
+    if (this.state.redirect) {
+      return (
+        /*#__PURE__*/
+        (0, _jsxRuntime.jsx)(_reactRouterDom.Redirect, {
+          to: "/"
+        })
+      );
+    } else if (this.state.hasError) {
+      return (
+        /*#__PURE__*/
+        (0, _jsxRuntime.jsxs)("h2", {
+          children: ["There was an error with this listing. ",
+          /*#__PURE__*/
+          (0, _jsxRuntime.jsx)(_reactRouterDom.Link, {
+            to: "/",
+            children: "Click here"
+          }), " ", "to back to the home page or wait five seconds."]
+        })
+      );
+    }
+
+    return this.props.childern; // what that is passed between <ErrorBoundary> is the children
+  }
+
+} // <ErrorBoundary>
+//   <h1>Hello World</h1>
+// </ErrorBoundary>
+
+
+var _default = ErrorBoundary;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"Details.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = DetailsWithErrorBoundary;
+
+var _react = require("react");
+
+var _reactRouterDom = require("react-router-dom");
+
 var _Carousel = _interopRequireDefault(require("./Carousel"));
+
+var _ErrorBoundary = _interopRequireDefault(require("./ErrorBoundary"));
 
 var _jsxRuntime = require("react/jsx-runtime");
 
@@ -35378,13 +35454,22 @@ class Details extends _react.Component {
 
 }
 
-var _default = (0, _reactRouterDom.withRouter)(Details); // by default React Router doesn't pass in all its information to the component so we have to use
+const DetailsWithRouter = (0, _reactRouterDom.withRouter)(Details); // export default withRouter(Details);
+// by default React Router doesn't pass in all its information to the component so we have to use
 // something called higher order component. it passes all the information into the component
 // injects all the router information into the route
 
-
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./Carousel":"Carousel.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"app.js":[function(require,module,exports) {
+function DetailsWithErrorBoundary() {
+  return (
+    /*#__PURE__*/
+    (0, _jsxRuntime.jsx)(_ErrorBoundary.default, {
+      children:
+      /*#__PURE__*/
+      (0, _jsxRuntime.jsx)(DetailsWithRouter, {})
+    })
+  );
+}
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./Carousel":"Carousel.js","./ErrorBoundary":"ErrorBoundary.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"app.js":[function(require,module,exports) {
 "use strict";
 
 var _react = require("react");
@@ -35504,7 +35589,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56545" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50941" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
