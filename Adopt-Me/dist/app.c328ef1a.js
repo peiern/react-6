@@ -33705,63 +33705,7 @@ if ("development" !== "production") {
     style: _propTypes.default.object
   });
 }
-},{"react-router":"../node_modules/react-router/esm/react-router.js","@babel/runtime/helpers/esm/inheritsLoose":"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react":"../node_modules/react/index.js","history":"../node_modules/history/esm/history.js","prop-types":"../node_modules/prop-types/index.js","tiny-warning":"../node_modules/tiny-warning/dist/tiny-warning.esm.js","@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","tiny-invariant":"../node_modules/tiny-invariant/dist/tiny-invariant.esm.js"}],"useBreedList.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = useBreedList;
-
-var _react = require("react");
-
-const localCache = {};
-
-function useBreedList(animal) {
-  const [breedList, setBreedList] = (0, _react.useState)([]);
-  const [status, setStatus] = (0, _react.useState)('unloaded'); // a string representing the state of the hook. if no one has called it before, it will be in the 'unloaded' state
-
-  (0, _react.useEffect)(() => {
-    if (!animal) {
-      setBreedList([]);
-    } else if (localCache[animal]) {
-      setBreedList(localCache[animal]);
-    } else {
-      requestBreedList();
-    } // 👆 no animal return empty list,
-    // if i have something locally, i've already requested this previously then display that list
-    // otherwise go out to the API and get it
-
-
-    async function requestBreedList() {
-      setBreedList([]);
-      setStatus('loading');
-      const res = await fetch(`http://pets-v2.dev-apis.com/breeds?animal=${animal}`);
-      const json = await res.json();
-      localCache[animal] = json.breeds || []; // || [] here is in case the API is not working
-
-      setBreedList(localCache[animal]);
-      setStatus('loaded');
-    }
-  }, [animal]);
-  return [breedList, status];
-}
-},{"react":"../node_modules/react/index.js"}],"ThemeContext.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = require("react");
-
-const ThemeContext =
-/*#__PURE__*/
-(0, _react.createContext)(["hotpink", () => {}]);
-var _default = ThemeContext;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"../node_modules/react/cjs/react-jsx-runtime.development.js":[function(require,module,exports) {
+},{"react-router":"../node_modules/react-router/esm/react-router.js","@babel/runtime/helpers/esm/inheritsLoose":"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react":"../node_modules/react/index.js","history":"../node_modules/history/esm/history.js","prop-types":"../node_modules/prop-types/index.js","tiny-warning":"../node_modules/tiny-warning/dist/tiny-warning.esm.js","@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","tiny-invariant":"../node_modules/tiny-invariant/dist/tiny-invariant.esm.js"}],"../node_modules/react/cjs/react-jsx-runtime.development.js":[function(require,module,exports) {
 /** @license React v17.0.1
  * react-jsx-runtime.development.js
  *
@@ -34970,260 +34914,7 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-jsx-runtime.development.js');
 }
-},{"./cjs/react-jsx-runtime.development.js":"../node_modules/react/cjs/react-jsx-runtime.development.js"}],"Pet.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _reactRouterDom = require("react-router-dom");
-
-var _jsxRuntime = require("react/jsx-runtime");
-
-// props = properties. props are what is passed down from one parent component to a child component
-// js way of writing
-// const Pet = (props) => {
-//   return React.createElement("div", {}, [
-//     React.createElement("h2", {}, props.name),
-//     React.createElement("h3", {}, props.animal),
-//     React.createElement("h3", {}, props.breed),
-//   ]);
-// };
-// jsx way of writing.
-// 👇 will generate the same result as the above code
-const Pet = ({
-  name,
-  animal,
-  breed,
-  images,
-  location,
-  id
-}) => {
-  let hero = "http://pets-images.dev-apis.com/pets/none.jpg"; // this is the image that gets display if nothing comes back from the API
-
-  if (images.length) {
-    hero = images[0];
-  } // if we get any images back, we want to make that the image
-
-
-  return (
-    /*#__PURE__*/
-    (0, _jsxRuntime.jsxs)(_reactRouterDom.Link, {
-      to: `/details/${id}`,
-      className: "pet",
-      children: [
-      /*#__PURE__*/
-      (0, _jsxRuntime.jsx)("div", {
-        className: "image-container",
-        children:
-        /*#__PURE__*/
-        (0, _jsxRuntime.jsx)("img", {
-          src: hero,
-          alt: name
-        })
-      }),
-      /*#__PURE__*/
-      (0, _jsxRuntime.jsxs)("div", {
-        className: "info",
-        children: [
-        /*#__PURE__*/
-        (0, _jsxRuntime.jsx)("h1", {
-          children: name
-        }),
-        /*#__PURE__*/
-        (0, _jsxRuntime.jsx)("h2", {
-          children: `${animal} - ${breed} - ${location}`
-        })]
-      })]
-    })
-  );
-}; // Once we're using React Router we want to switch a tags to Link tags
-// Link tags doesn't reload the entire page, React Router captures the navigation event and its doing the navigation without reloading the application
-// it becomes a single page application
-
-
-var _default = Pet;
-exports.default = _default;
-},{"react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"Results.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _Pet = _interopRequireDefault(require("./Pet"));
-
-var _jsxRuntime = require("react/jsx-runtime");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-const Results = ({
-  pets
-}) => {
-  return (
-    /*#__PURE__*/
-    (0, _jsxRuntime.jsx)("div", {
-      className: "search",
-      children: !pets.length ?
-      /*#__PURE__*/
-      (0, _jsxRuntime.jsx)("h2", {
-        children: "No Pets Found"
-      }) : pets.map(pet =>
-      /*#__PURE__*/
-      (0, _jsxRuntime.jsx)(_Pet.default, {
-        animal: pet.animal,
-        // key is only used for react to keep track of changes // cannot have a prop call key ever
-        name: pet.name,
-        breed: pet.breed,
-        images: pet.images,
-        location: `${pet.city}, ${pet.state}`,
-        id: pet.id
-      }, pet.id))
-    })
-  );
-};
-
-var _default = Results;
-exports.default = _default;
-},{"./Pet":"Pet.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"SearchParams.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = require("react");
-
-var _useBreedList = _interopRequireDefault(require("./useBreedList"));
-
-var _ThemeContext = _interopRequireDefault(require("./ThemeContext"));
-
-var _Results = _interopRequireDefault(require("./Results"));
-
-var _jsxRuntime = require("react/jsx-runtime");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// useState is a hook that allows us to keep track of state as indicated by the state
-// hooks always begins with 'use'
-const ANIMALS = ["bird", "cat", "dog", "rabbit", "reptile"];
-
-const SearchParams = () => {
-  const [location, setLocation] = (0, _react.useState)(""); // this is a hook that allows us to have the location and setLocation will track it over time
-
-  const [animal, setAnimal] = (0, _react.useState)("");
-  const [breed, setBreed] = (0, _react.useState)("");
-  const [pets, setPets] = (0, _react.useState)([]);
-  const [breedList] = (0, _useBreedList.default)(animal);
-  const [theme] = (0, _react.useContext)(_ThemeContext.default); // const [theme, setTheme] = useContext(ThemeContext);
-
-  (0, _react.useEffect)(() => {
-    requestPets();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  // 👆 this comment tells eslint to ignore the rule for this particular line only
-  // this [] is telling the effect to always run once at the beginning and then when to rerun. Without it, it creates an infinite loop whenever we call setPets
-
-  async function requestPets() {
-    const res = await fetch(`http://pets-v2.dev-apis.com/pets?animal=${animal}&location=${location}&breed=${breed}` // this is the API
-    );
-    const json = await res.json(); // this json is whatever we get back from the API
-
-    setPets(json.pets); // so everytime we call requestPets(), it's gonna take all the data that I have, and also grab whatever we were searching for from the API
-  }
-
-  return (
-    /*#__PURE__*/
-    (0, _jsxRuntime.jsxs)("div", {
-      className: "search-params",
-      children: [
-      /*#__PURE__*/
-      (0, _jsxRuntime.jsxs)("form", {
-        onSubmit: e => {
-          e.preventDefault();
-          requestPets();
-        },
-        children: [
-        /*#__PURE__*/
-        (0, _jsxRuntime.jsxs)("label", {
-          htmlFor: "location",
-          children: ["Location",
-          /*#__PURE__*/
-          (0, _jsxRuntime.jsx)("input", {
-            id: "location",
-            onChange: e => setLocation(e.target.value) // 1 line arrow function
-            // whenever user does something, it will give us back a function that gives us back an event
-            ,
-            value: location,
-            placeholder: "Location"
-          })]
-        }),
-        /*#__PURE__*/
-        (0, _jsxRuntime.jsxs)("label", {
-          htmlFor: "animal",
-          children: ["Animal",
-          /*#__PURE__*/
-          (0, _jsxRuntime.jsxs)("select", {
-            id: "animal",
-            onChange: e => setAnimal(e.target.value) // with only onChange here, it gives an error to use onBlur instead as it worries onChange might not be enough to capture keyboard or screen reader users' response
-            ,
-            onBlur: e => setAnimal(e.target.value),
-            value: animal,
-            children: [
-            /*#__PURE__*/
-            (0, _jsxRuntime.jsx)("option", {}), ANIMALS.map(animal =>
-            /*#__PURE__*/
-            (0, _jsxRuntime.jsx)("option", {
-              value: animal,
-              children: animal
-            }, animal))]
-          })]
-        }),
-        /*#__PURE__*/
-        (0, _jsxRuntime.jsxs)("label", {
-          htmlFor: "breed",
-          children: ["Breed",
-          /*#__PURE__*/
-          (0, _jsxRuntime.jsxs)("select", {
-            id: "breed",
-            onChange: e => setBreed(e.target.value) // with only onChange here, it gives an error to use onBlur instead as it worries onChange might not be enough to capture keyboard or screen reader users' response
-            ,
-            onBlur: e => setBreed(e.target.value),
-            value: breed,
-            children: [
-            /*#__PURE__*/
-            (0, _jsxRuntime.jsx)("option", {}), breedList.map(breed =>
-            /*#__PURE__*/
-            (0, _jsxRuntime.jsx)("option", {
-              value: breed,
-              children: breed
-            }, breed))]
-          })]
-        }),
-        /*#__PURE__*/
-        (0, _jsxRuntime.jsx)("button", {
-          style: {
-            backgroundColor: theme
-          },
-          children: "Submit"
-        })]
-      }),
-      /*#__PURE__*/
-      (0, _jsxRuntime.jsx)(_Results.default, {
-        pets: pets
-      })]
-    })
-  );
-};
-
-var _default = SearchParams; // the word class is a reserved word hence we use className
-// For is reserved for for loops in JS hence we use htmlFor
-
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","./useBreedList":"useBreedList.js","./ThemeContext":"ThemeContext.js","./Results":"Results.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"Carousel.js":[function(require,module,exports) {
+},{"./cjs/react-jsx-runtime.development.js":"../node_modules/react/cjs/react-jsx-runtime.development.js"}],"Carousel.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -35385,7 +35076,22 @@ class ErrorBoundary extends _react.Component {
 
 var _default = ErrorBoundary;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"Modal.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"ThemeContext.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = require("react");
+
+const ThemeContext =
+/*#__PURE__*/
+(0, _react.createContext)(["hotpink", () => {}]);
+var _default = ThemeContext;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"Modal.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -35593,7 +35299,334 @@ function DetailsErrorBoundary(props) {
     })
   );
 }
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./Carousel":"Carousel.js","./ErrorBoundary":"ErrorBoundary.js","./ThemeContext":"ThemeContext.js","./Modal":"Modal.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"app.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./Carousel":"Carousel.js","./ErrorBoundary":"ErrorBoundary.js","./ThemeContext":"ThemeContext.js","./Modal":"Modal.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"useBreedList.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = useBreedList;
+
+var _react = require("react");
+
+const localCache = {};
+
+function useBreedList(animal) {
+  const [breedList, setBreedList] = (0, _react.useState)([]);
+  const [status, setStatus] = (0, _react.useState)('unloaded'); // a string representing the state of the hook. if no one has called it before, it will be in the 'unloaded' state
+
+  (0, _react.useEffect)(() => {
+    if (!animal) {
+      setBreedList([]);
+    } else if (localCache[animal]) {
+      setBreedList(localCache[animal]);
+    } else {
+      requestBreedList();
+    } // 👆 no animal return empty list,
+    // if i have something locally, i've already requested this previously then display that list
+    // otherwise go out to the API and get it
+
+
+    async function requestBreedList() {
+      setBreedList([]);
+      setStatus('loading');
+      const res = await fetch(`http://pets-v2.dev-apis.com/breeds?animal=${animal}`);
+      const json = await res.json();
+      localCache[animal] = json.breeds || []; // || [] here is in case the API is not working
+
+      setBreedList(localCache[animal]);
+      setStatus('loaded');
+    }
+  }, [animal]);
+  return [breedList, status];
+}
+},{"react":"../node_modules/react/index.js"}],"Pet.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reactRouterDom = require("react-router-dom");
+
+var _jsxRuntime = require("react/jsx-runtime");
+
+// props = properties. props are what is passed down from one parent component to a child component
+// js way of writing
+// const Pet = (props) => {
+//   return React.createElement("div", {}, [
+//     React.createElement("h2", {}, props.name),
+//     React.createElement("h3", {}, props.animal),
+//     React.createElement("h3", {}, props.breed),
+//   ]);
+// };
+// jsx way of writing.
+// 👇 will generate the same result as the above code
+const Pet = ({
+  name,
+  animal,
+  breed,
+  images,
+  location,
+  id
+}) => {
+  let hero = "http://pets-images.dev-apis.com/pets/none.jpg"; // this is the image that gets display if nothing comes back from the API
+
+  if (images.length) {
+    hero = images[0];
+  } // if we get any images back, we want to make that the image
+
+
+  return (
+    /*#__PURE__*/
+    (0, _jsxRuntime.jsxs)(_reactRouterDom.Link, {
+      to: `/details/${id}`,
+      className: "pet",
+      children: [
+      /*#__PURE__*/
+      (0, _jsxRuntime.jsx)("div", {
+        className: "image-container",
+        children:
+        /*#__PURE__*/
+        (0, _jsxRuntime.jsx)("img", {
+          src: hero,
+          alt: name
+        })
+      }),
+      /*#__PURE__*/
+      (0, _jsxRuntime.jsxs)("div", {
+        className: "info",
+        children: [
+        /*#__PURE__*/
+        (0, _jsxRuntime.jsx)("h1", {
+          children: name
+        }),
+        /*#__PURE__*/
+        (0, _jsxRuntime.jsx)("h2", {
+          children: `${animal} - ${breed} - ${location}`
+        })]
+      })]
+    })
+  );
+}; // Once we're using React Router we want to switch a tags to Link tags
+// Link tags doesn't reload the entire page, React Router captures the navigation event and its doing the navigation without reloading the application
+// it becomes a single page application
+
+
+var _default = Pet;
+exports.default = _default;
+},{"react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"Results.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _Pet = _interopRequireDefault(require("./Pet"));
+
+var _jsxRuntime = require("react/jsx-runtime");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const Results = ({
+  pets
+}) => {
+  return (
+    /*#__PURE__*/
+    (0, _jsxRuntime.jsx)("div", {
+      className: "search",
+      children: !pets.length ?
+      /*#__PURE__*/
+      (0, _jsxRuntime.jsx)("h2", {
+        children: "No Pets Found"
+      }) : pets.map(pet =>
+      /*#__PURE__*/
+      (0, _jsxRuntime.jsx)(_Pet.default, {
+        animal: pet.animal,
+        // key is only used for react to keep track of changes // cannot have a prop call key ever
+        name: pet.name,
+        breed: pet.breed,
+        images: pet.images,
+        location: `${pet.city}, ${pet.state}`,
+        id: pet.id
+      }, pet.id))
+    })
+  );
+};
+
+var _default = Results;
+exports.default = _default;
+},{"./Pet":"Pet.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"SearchParams.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = require("react");
+
+var _useBreedList = _interopRequireDefault(require("./useBreedList"));
+
+var _ThemeContext = _interopRequireDefault(require("./ThemeContext"));
+
+var _Results = _interopRequireDefault(require("./Results"));
+
+var _jsxRuntime = require("react/jsx-runtime");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// useState is a hook that allows us to keep track of state as indicated by the state
+// hooks always begins with 'use'
+const ANIMALS = ["bird", "cat", "dog", "rabbit", "reptile"];
+
+const SearchParams = () => {
+  const [location, setLocation] = (0, _react.useState)(""); // this is a hook that allows us to have the location and setLocation will track it over time
+
+  const [animal, setAnimal] = (0, _react.useState)("");
+  const [breed, setBreed] = (0, _react.useState)("");
+  const [pets, setPets] = (0, _react.useState)([]);
+  const [breedList] = (0, _useBreedList.default)(animal);
+  const [theme, setTheme] = (0, _react.useContext)(_ThemeContext.default);
+  (0, _react.useEffect)(() => {
+    requestPets();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  // 👆 this comment tells eslint to ignore the rule for this particular line only
+  // this [] is telling the effect to always run once at the beginning and then when to rerun. Without it, it creates an infinite loop whenever we call setPets
+
+  async function requestPets() {
+    const res = await fetch(`http://pets-v2.dev-apis.com/pets?animal=${animal}&location=${location}&breed=${breed}` // this is the API
+    );
+    const json = await res.json(); // this json is whatever we get back from the API
+
+    setPets(json.pets); // so everytime we call requestPets(), it's gonna take all the data that I have, and also grab whatever we were searching for from the API
+  }
+
+  return (
+    /*#__PURE__*/
+    (0, _jsxRuntime.jsxs)("div", {
+      className: "search-params",
+      children: [
+      /*#__PURE__*/
+      (0, _jsxRuntime.jsxs)("form", {
+        onSubmit: e => {
+          e.preventDefault();
+          requestPets();
+        },
+        children: [
+        /*#__PURE__*/
+        (0, _jsxRuntime.jsxs)("label", {
+          htmlFor: "location",
+          children: ["Location",
+          /*#__PURE__*/
+          (0, _jsxRuntime.jsx)("input", {
+            id: "location",
+            onChange: e => setLocation(e.target.value) // 1 line arrow function
+            // whenever user does something, it will give us back a function that gives us back an event
+            ,
+            value: location,
+            placeholder: "Location"
+          })]
+        }),
+        /*#__PURE__*/
+        (0, _jsxRuntime.jsxs)("label", {
+          htmlFor: "animal",
+          children: ["Animal",
+          /*#__PURE__*/
+          (0, _jsxRuntime.jsxs)("select", {
+            id: "animal",
+            onChange: e => setAnimal(e.target.value) // with only onChange here, it gives an error to use onBlur instead as it worries onChange might not be enough to capture keyboard or screen reader users' response
+            ,
+            onBlur: e => setAnimal(e.target.value),
+            value: animal,
+            children: [
+            /*#__PURE__*/
+            (0, _jsxRuntime.jsx)("option", {}), ANIMALS.map(animal =>
+            /*#__PURE__*/
+            (0, _jsxRuntime.jsx)("option", {
+              value: animal,
+              children: animal
+            }, animal))]
+          })]
+        }),
+        /*#__PURE__*/
+        (0, _jsxRuntime.jsxs)("label", {
+          htmlFor: "breed",
+          children: ["Breed",
+          /*#__PURE__*/
+          (0, _jsxRuntime.jsxs)("select", {
+            id: "breed",
+            onChange: e => setBreed(e.target.value) // with only onChange here, it gives an error to use onBlur instead as it worries onChange might not be enough to capture keyboard or screen reader users' response
+            ,
+            onBlur: e => setBreed(e.target.value),
+            value: breed,
+            children: [
+            /*#__PURE__*/
+            (0, _jsxRuntime.jsx)("option", {}), breedList.map(breed =>
+            /*#__PURE__*/
+            (0, _jsxRuntime.jsx)("option", {
+              value: breed,
+              children: breed
+            }, breed))]
+          })]
+        }),
+        /*#__PURE__*/
+        (0, _jsxRuntime.jsxs)("label", {
+          htmlFor: "theme",
+          children: ["Theme",
+          /*#__PURE__*/
+          (0, _jsxRuntime.jsxs)("select", {
+            value: theme,
+            onChange: e => setTheme(e.target.value),
+            onBlur: e => setTheme(e.target.value),
+            children: [
+            /*#__PURE__*/
+            (0, _jsxRuntime.jsx)("option", {}),
+            /*#__PURE__*/
+            (0, _jsxRuntime.jsx)("option", {
+              value: "peru",
+              children: "Peru"
+            }),
+            /*#__PURE__*/
+            (0, _jsxRuntime.jsx)("option", {
+              value: "darkblue",
+              children: "Dark Blue"
+            }),
+            /*#__PURE__*/
+            (0, _jsxRuntime.jsx)("option", {
+              value: "chartreuse",
+              children: "Chartreuse"
+            }),
+            /*#__PURE__*/
+            (0, _jsxRuntime.jsx)("option", {
+              value: "mediumorchid",
+              children: "Medium Orchid"
+            })]
+          })]
+        }),
+        /*#__PURE__*/
+        (0, _jsxRuntime.jsx)("button", {
+          style: {
+            backgroundColor: theme
+          },
+          children: "Submit"
+        })]
+      }),
+      /*#__PURE__*/
+      (0, _jsxRuntime.jsx)(_Results.default, {
+        pets: pets
+      })]
+    })
+  );
+};
+
+var _default = SearchParams; // the word class is a reserved word hence we use className
+// For is reserved for for loops in JS hence we use htmlFor
+
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","./useBreedList":"useBreedList.js","./ThemeContext":"ThemeContext.js","./Results":"Results.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"app.js":[function(require,module,exports) {
 "use strict";
 
 var _react = require("react");
@@ -35602,9 +35635,11 @@ var _reactDom = _interopRequireDefault(require("react-dom"));
 
 var _reactRouterDom = require("react-router-dom");
 
+var _Details = _interopRequireDefault(require("./Details"));
+
 var _SearchParams = _interopRequireDefault(require("./SearchParams"));
 
-var _Details = _interopRequireDefault(require("./Details"));
+var _ThemeContext = _interopRequireDefault(require("./ThemeContext"));
 
 var _jsxRuntime = require("react/jsx-runtime");
 
@@ -35635,44 +35670,50 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //   ]);
 // };
 const App = () => {
+  const theme = (0, _react.useState)("darkblue");
   return (
     /*#__PURE__*/
-    (0, _jsxRuntime.jsx)("div", {
+    (0, _jsxRuntime.jsx)(_ThemeContext.default.Provider, {
+      value: theme,
       children:
       /*#__PURE__*/
-      (0, _jsxRuntime.jsxs)(_reactRouterDom.BrowserRouter, {
-        children: [
+      (0, _jsxRuntime.jsx)("div", {
+        children:
         /*#__PURE__*/
-        (0, _jsxRuntime.jsx)("header", {
-          children:
-          /*#__PURE__*/
-          (0, _jsxRuntime.jsx)(_reactRouterDom.Link, {
-            to: "/",
-            children:
-            /*#__PURE__*/
-            (0, _jsxRuntime.jsx)("h1", {
-              children: "Adopt Me!"
-            })
-          })
-        }),
-        /*#__PURE__*/
-        (0, _jsxRuntime.jsxs)(_reactRouterDom.Switch, {
+        (0, _jsxRuntime.jsxs)(_reactRouterDom.BrowserRouter, {
           children: [
           /*#__PURE__*/
-          (0, _jsxRuntime.jsx)(_reactRouterDom.Route, {
-            path: "/details/:id",
+          (0, _jsxRuntime.jsx)("header", {
             children:
             /*#__PURE__*/
-            (0, _jsxRuntime.jsx)(_Details.default, {})
+            (0, _jsxRuntime.jsx)(_reactRouterDom.Link, {
+              to: "/",
+              children:
+              /*#__PURE__*/
+              (0, _jsxRuntime.jsx)("h1", {
+                children: "Adopt Me!"
+              })
+            })
           }),
           /*#__PURE__*/
-          (0, _jsxRuntime.jsx)(_reactRouterDom.Route, {
-            path: "/",
-            children:
+          (0, _jsxRuntime.jsxs)(_reactRouterDom.Switch, {
+            children: [
             /*#__PURE__*/
-            (0, _jsxRuntime.jsx)(_SearchParams.default, {})
+            (0, _jsxRuntime.jsx)(_reactRouterDom.Route, {
+              path: "/details/:id",
+              children:
+              /*#__PURE__*/
+              (0, _jsxRuntime.jsx)(_Details.default, {})
+            }),
+            /*#__PURE__*/
+            (0, _jsxRuntime.jsx)(_reactRouterDom.Route, {
+              path: "/",
+              children:
+              /*#__PURE__*/
+              (0, _jsxRuntime.jsx)(_SearchParams.default, {})
+            })]
           })]
-        })]
+        })
       })
     })
   );
@@ -35685,7 +35726,7 @@ _reactDom.default.render(
   /*#__PURE__*/
   (0, _jsxRuntime.jsx)(App, {})
 }), document.getElementById("root")); // the createElement here is to create the instance of App
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./SearchParams":"SearchParams.js","./Details":"Details.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./Details":"Details.js","./SearchParams":"SearchParams.js","./ThemeContext":"ThemeContext.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -35713,7 +35754,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50941" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64392" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
