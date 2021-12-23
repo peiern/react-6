@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
-import ThemeContext from './ThemeContext';
 import useBreedList from './useBreedList';
+import ThemeContext from './ThemeContext';
 import Results from './Results';
 // useState is a hook that allows us to keep track of state as indicated by the state
 // hooks always begins with 'use'
@@ -13,7 +13,8 @@ const SearchParams = () => {
   const [breed, setBreed] = useState("");
   const [pets, setPets] = useState([]);
   const [breedList] = useBreedList(animal);
-  const [theme, setTheme] = useContext(ThemeContext);
+  const [theme] = useContext(ThemeContext);
+  // const [theme, setTheme] = useContext(ThemeContext);
 
   useEffect(() => {
     requestPets();
@@ -84,20 +85,21 @@ const SearchParams = () => {
           }
           </select>
         </label>
-        <label htmlFor="theme">
+
+        {/* <label htmlFor="theme">
           Theme
           <select
+            value={theme}
             onChange={(e) => setTheme(e.target.value)}
             onBlur={(e) => setTheme(e.target.value)}
-            value={theme}
           >
-              <option />
-              <option value="darkblue">Dark Blue</option>
-              <option value="peru">Peru</option>
-              <option value="chartreuse">Chartreuse</option>
-              <option value="mediumorchid">Medium Orchid</option>
+            <option />
+            <option value="peru">Peru</option>
+            <option value="darkblue">Dark Blue</option>
+            <option value="chartreuse">Chartreuse</option>
+            <option value="mediumorchid">Medium Orchid</option>
           </select>
-        </label>
+        </label> */}
         <button style={{ backgroundColor: theme }}>Submit</button>
       </form>
       <Results pets={pets} />

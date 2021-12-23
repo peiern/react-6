@@ -33705,22 +33705,7 @@ if ("development" !== "production") {
     style: _propTypes.default.object
   });
 }
-},{"react-router":"../node_modules/react-router/esm/react-router.js","@babel/runtime/helpers/esm/inheritsLoose":"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react":"../node_modules/react/index.js","history":"../node_modules/history/esm/history.js","prop-types":"../node_modules/prop-types/index.js","tiny-warning":"../node_modules/tiny-warning/dist/tiny-warning.esm.js","@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","tiny-invariant":"../node_modules/tiny-invariant/dist/tiny-invariant.esm.js"}],"ThemeContext.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = require("react");
-
-const ThemeContext =
-/*#__PURE__*/
-(0, _react.createContext)(["green", () => {}]);
-var _default = ThemeContext;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"useBreedList.js":[function(require,module,exports) {
+},{"react-router":"../node_modules/react-router/esm/react-router.js","@babel/runtime/helpers/esm/inheritsLoose":"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react":"../node_modules/react/index.js","history":"../node_modules/history/esm/history.js","prop-types":"../node_modules/prop-types/index.js","tiny-warning":"../node_modules/tiny-warning/dist/tiny-warning.esm.js","@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","tiny-invariant":"../node_modules/tiny-invariant/dist/tiny-invariant.esm.js"}],"useBreedList.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -33761,6 +33746,21 @@ function useBreedList(animal) {
   }, [animal]);
   return [breedList, status];
 }
+},{"react":"../node_modules/react/index.js"}],"ThemeContext.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = require("react");
+
+const ThemeContext =
+/*#__PURE__*/
+(0, _react.createContext)(["hotpink", () => {}]);
+var _default = ThemeContext;
+exports.default = _default;
 },{"react":"../node_modules/react/index.js"}],"../node_modules/react/cjs/react-jsx-runtime.development.js":[function(require,module,exports) {
 /** @license React v17.0.1
  * react-jsx-runtime.development.js
@@ -35098,9 +35098,9 @@ exports.default = void 0;
 
 var _react = require("react");
 
-var _ThemeContext = _interopRequireDefault(require("./ThemeContext"));
-
 var _useBreedList = _interopRequireDefault(require("./useBreedList"));
+
+var _ThemeContext = _interopRequireDefault(require("./ThemeContext"));
 
 var _Results = _interopRequireDefault(require("./Results"));
 
@@ -35119,7 +35119,8 @@ const SearchParams = () => {
   const [breed, setBreed] = (0, _react.useState)("");
   const [pets, setPets] = (0, _react.useState)([]);
   const [breedList] = (0, _useBreedList.default)(animal);
-  const [theme, setTheme] = (0, _react.useContext)(_ThemeContext.default);
+  const [theme] = (0, _react.useContext)(_ThemeContext.default); // const [theme, setTheme] = useContext(ThemeContext);
+
   (0, _react.useEffect)(() => {
     requestPets();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -35203,40 +35204,6 @@ const SearchParams = () => {
           })]
         }),
         /*#__PURE__*/
-        (0, _jsxRuntime.jsxs)("label", {
-          htmlFor: "theme",
-          children: ["Theme",
-          /*#__PURE__*/
-          (0, _jsxRuntime.jsxs)("select", {
-            onChange: e => setTheme(e.target.value),
-            onBlur: e => setTheme(e.target.value),
-            value: theme,
-            children: [
-            /*#__PURE__*/
-            (0, _jsxRuntime.jsx)("option", {}),
-            /*#__PURE__*/
-            (0, _jsxRuntime.jsx)("option", {
-              value: "darkblue",
-              children: "Dark Blue"
-            }),
-            /*#__PURE__*/
-            (0, _jsxRuntime.jsx)("option", {
-              value: "peru",
-              children: "Peru"
-            }),
-            /*#__PURE__*/
-            (0, _jsxRuntime.jsx)("option", {
-              value: "chartreuse",
-              children: "Chartreuse"
-            }),
-            /*#__PURE__*/
-            (0, _jsxRuntime.jsx)("option", {
-              value: "mediumorchid",
-              children: "Medium Orchid"
-            })]
-          })]
-        }),
-        /*#__PURE__*/
         (0, _jsxRuntime.jsx)("button", {
           style: {
             backgroundColor: theme
@@ -35256,7 +35223,7 @@ var _default = SearchParams; // the word class is a reserved word hence we use c
 // For is reserved for for loops in JS hence we use htmlFor
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","./ThemeContext":"ThemeContext.js","./useBreedList":"useBreedList.js","./Results":"Results.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"Carousel.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./useBreedList":"useBreedList.js","./ThemeContext":"ThemeContext.js","./Results":"Results.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"Carousel.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

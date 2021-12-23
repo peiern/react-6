@@ -1,8 +1,8 @@
 import { useState, StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import SearchParams from './SearchParams';
 import Details from './Details';
+import SearchParams from './SearchParams';
 import ThemeContext from './ThemeContext';
 
 // data flows downwards in React (one way data flow)
